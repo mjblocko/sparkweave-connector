@@ -1,0 +1,3 @@
+<!-- BEGIN_INCLUDE(sparkweave:my-processor) -->
+    <sparkweave:my-processor content="#[map-payload:content]" />
+<!-- END_INCLUDE(sparkweave:my-processor) -->
