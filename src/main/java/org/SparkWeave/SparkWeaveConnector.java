@@ -13,37 +13,122 @@ import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Processor;
 
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.LoggingFilter;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataBodyPart;
+import com.sun.jersey.multipart.FormDataMultiPart;
+import com.sun.jersey.multipart.MultiPart;
+import com.sun.jersey.multipart.impl.MultiPartWriter;
+
 /**
- * Cloud Connector
+ * SparkWeave Cloud Connector
  *
  * @author MuleSoft, Inc.
  */
 @Connector(name="sparkweave", schemaVersion="1.0-SNAPSHOT")
 public class SparkWeaveConnector
-{
-    /**
-     * Configurable
-     */
+{   
+    private static final String API_VERSION = "1";
+    private static final String ROOT_PARAM = "filesync";
+
     @Configurable
-    private String myProperty;
+    private String Server;
 
-    /**
-     * Set property
-     *
-     * @param myProperty My property
-     */
-    public void setMyProperty(String myProperty)
+    @Configurable
+    private String UserEmail;
+
+    @Configurable
+    private String Password;
+
+    @Configurable
+    @Optional
+    @Default("false")
+    private boolean UseHttps;
+
+    private Client client;
+
+    // private UserInfo  UserInfo;
+
+	  /**
+	  * debug mode
+	  */
+	  @Configurable
+	  @Optional
+	  @Default("false")
+	  private boolean Debug;
+
+    public void setServer(String server)
     {
-        this.myProperty = myProperty;
+        this.Server = server;
     }
 
-    /**
-     * Get property
-     */
-    public String getMyProperty()
+    public String getServer()
     {
-        return this.myProperty;
+        return this.Server;
     }
+
+    public void setUserEmail(String userEmail)
+    {
+        this.UserEmail = userEmail;
+    }
+
+    public String getUserEmail()
+    {
+        return this.UserEmail;
+    }
+
+    public void setPassword(String password)
+    {
+        this.Password = password;
+    }
+
+    public String getPassword()
+    {
+        return this.Password;
+    }
+
+    public void setUseHttps(boolean useHttps)
+    {
+        this.UseHttps = useHttps;
+    }
+
+    public boolean getUseHttps()
+    {
+        return this.UseHttps;
+    }
+
+	  public boolean isDebug() {
+		  return Debug;
+	  }
+
+	  public void setDebug(boolean debug) {
+		  this.Debug = debug;
+	  }
+
+	  protected Client getClient() {
+		  if (client == null) {
+			  ClientConfig cc = new DefaultClientConfig();
+			  cc.getClasses().add(MultiPartWriter.class);
+			  client = Client.create(cc);
+		  }
+		  return client;
+	  }
 
     /**
      * Connect
