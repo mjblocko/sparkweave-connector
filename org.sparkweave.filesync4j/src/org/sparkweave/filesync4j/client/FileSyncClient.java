@@ -93,7 +93,8 @@ public class FileSyncClient
     return UseHttps;
   }
 
-  public FileSyncClient() {
+  public FileSyncClient()
+  {
   }
 
   static Cookie FindCookieByName(List<Cookie> cookies, String name)
@@ -159,16 +160,14 @@ public class FileSyncClient
 
   private String CreateUploadFileResource(String path)
   {
-    return String.format("/api/vfs/%s/files_put/%s/%s", API_VERSION,
-        ROOT_PARAM, path);
+    return String.format("/api/vfs/%s/files_put/%s/%s", API_VERSION, ROOT_PARAM, path);
   }
 
   private String CreateDownloadFileResource(String path)
   {
-    return String.format("/api/vfs/%s/files/%s/%s", API_VERSION, ROOT_PARAM,
-        path);
+    return String.format("/api/vfs/%s/files/%s/%s", API_VERSION, ROOT_PARAM, path);
   }
-  
+
   private String CreateDeleteResource()
   {
     return String.format("/api/vfs/%s/fileops/delete", API_VERSION);
@@ -180,12 +179,10 @@ public class FileSyncClient
 
     try {
       WebResource.Builder builder = CreateClient("/api/auth/login");
-      ClientResponse response = builder.accept("application/json").get(
-          ClientResponse.class);
+      ClientResponse response = builder.accept("application/json").get(ClientResponse.class);
 
       if (response.getStatus() != 200) {
-        throw new RuntimeException("Failed : HTTP error code : "
-            + response.getStatus());
+        throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
       }
 
       JSONParser parser = new JSONParser();
@@ -211,11 +208,9 @@ public class FileSyncClient
       formData.add("client", "SyncWeave");
 
       builder = CreateClient("/api/auth/login");
-      response = builder.accept("application/json").post(ClientResponse.class,
-          formData);
+      response = builder.accept("application/json").post(ClientResponse.class, formData);
       if (response.getStatus() != 200) {
-        throw new RuntimeException("Failed : HTTP error code : "
-            + response.getStatus());
+        throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
       }
 
       // Update the dw-user-cookie value
@@ -231,12 +226,12 @@ public class FileSyncClient
 
       jsonObject = (JSONObject) parser.parse(output);
       result = (JSONObject) jsonObject.get("result");
-      UserInfo userInfo = JsonHelpers.getJsonFromString(result.toJSONString(),
-          UserInfo.class);
+      UserInfo userInfo = JsonHelpers.getJsonFromString(result.toJSONString(), UserInfo.class);
       // System.out.println(userInfo.toString());
 
       isLoggedIn = true;
-    } catch (Exception e) {
+    }
+    catch (Exception e) {
       e.printStackTrace();
     }
     return isLoggedIn;
@@ -252,12 +247,10 @@ public class FileSyncClient
     final String apiUrl = CreateMetadataResource() + SwHelpers.AdaptPath(path);
     WebResource.Builder builder = CreateClient(apiUrl);
 
-    ClientResponse response = builder.accept("application/json").get(
-        ClientResponse.class);
+    ClientResponse response = builder.accept("application/json").get(ClientResponse.class);
 
     if (response.getStatus() != 200) {
-      throw new RuntimeException("Failed : HTTP error code : "
-          + response.getStatus());
+      throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
     }
     String output = response.getEntity(String.class);
 
@@ -271,8 +264,7 @@ public class FileSyncClient
     return paths;
   }
 
-  public String UploadFile(InputStream fileDataObj, boolean overwrite,
-      String path) throws Exception
+  public String UploadFile(InputStream fileDataObj, boolean overwrite, String path) throws Exception
   {
     String output = null;
     String apiUrl = CreateUploadFileResource(path);
@@ -283,8 +275,7 @@ public class FileSyncClient
 
     WebResource.Builder builder = CreateClient(apiUrl);
 
-    output = builder.type(MediaType.MULTIPART_FORM_DATA)
-        .accept("application/json").post(String.class, fileData);
+    output = builder.type(MediaType.MULTIPART_FORM_DATA).accept("application/json").post(String.class, fileData);
 
     return output;
 
@@ -301,8 +292,7 @@ public class FileSyncClient
     formData.add("csrfmiddlewaretoken", MiddleWareToken());
     formData.add("root", ROOT_PARAM);
     formData.add("path", path);
-    ClientResponse response = builder.accept("application/json").post(
-        ClientResponse.class, formData);
+    ClientResponse response = builder.accept("application/json").post(ClientResponse.class, formData);
 
     // If we get a 403 the directory probably exists
     if (response.getStatus() == 403) {
@@ -310,8 +300,7 @@ public class FileSyncClient
     }
 
     if (response.getStatus() != 200) {
-      throw new RuntimeException("Failed : HTTP error code : "
-          + response.getStatus());
+      throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
     }
 
     String output = response.getEntity(String.class);
@@ -333,8 +322,7 @@ public class FileSyncClient
     formData.add("csrfmiddlewaretoken", MiddleWareToken());
     formData.add("root", ROOT_PARAM);
     formData.add("path", path);
-    ClientResponse response = builder.accept("application/json").post(
-        ClientResponse.class, formData);
+    ClientResponse response = builder.accept("application/json").post(ClientResponse.class, formData);
 
     // If we get a 403 the directory probably exists
     if (response.getStatus() == 403) {
@@ -342,8 +330,7 @@ public class FileSyncClient
     }
 
     if (response.getStatus() != 200) {
-      throw new RuntimeException("Failed : HTTP error code : "
-          + response.getStatus());
+      throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
     }
 
     output = response.getEntity(String.class);
@@ -364,6 +351,5 @@ public class FileSyncClient
     }
     return response;
   }
-  
 
 }
