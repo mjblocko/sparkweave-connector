@@ -9,109 +9,71 @@ import org.mule.api.annotations.ValidateConnection;
 import org.mule.api.annotations.ConnectionIdentifier;
 import org.mule.api.annotations.Disconnect;
 import org.mule.api.annotations.param.ConnectionKey;
+import org.mule.api.annotations.param.Default;
+import org.mule.api.annotations.param.Optional;
+import org.mule.api.annotations.param.Payload;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Processor;
 
-import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.LoggingFilter;
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.multipart.FormDataBodyPart;
-import com.sun.jersey.multipart.FormDataMultiPart;
-import com.sun.jersey.multipart.MultiPart;
-import com.sun.jersey.multipart.impl.MultiPartWriter;
-
 /**
  * SparkWeave Cloud Connector
  *
- * @author MuleSoft, Inc.
+ * @author SparkWeave, LLC.
  */
 @Connector(name="sparkweave", schemaVersion="1.0-SNAPSHOT")
 public class SparkWeaveConnector
-{   
-    private static final String API_VERSION = "1";
-    private static final String ROOT_PARAM = "filesync";
-
+{    
+    /**
+     * The user name to access SparkWeave FileSync Services
+     */
     @Configurable
     private String Server;
+    
+    /**
+     * The user name to access SparkWeave FileSync Services
+     */
+    public void setServer(String server) {
+      Server = server;
+    }
 
+    /**
+     * The user email address to access SparkWeave FileSync Services
+     */
     @Configurable
     private String UserEmail;
+    public void setUserEmail(String str) {
+      UserEmail = str;
+    }
 
+    /**
+     * The user password to access SparkWeave FileSync Services
+     */
     @Configurable
-    private String Password;
+    private String UserPassword;
+    public void setUserPassword(String str) {
+      UserPassword = str;
+    }
 
+    /**
+     * Set to true to use https communication (default: false)
+     */
     @Configurable
     @Optional
     @Default("false")
     private boolean UseHttps;
+    public void setUseHttps(boolean value) {
+      UseHttps = value;
+    }
 
-    private Client client;
-
-    // private UserInfo  UserInfo;
-
-	  /**
-	  * debug mode
-	  */
+    /**
+     * Turn debug on
+     */
 	  @Configurable
 	  @Optional
 	  @Default("false")
 	  private boolean Debug;
 
-    public void setServer(String server)
-    {
-        this.Server = server;
-    }
-
-    public String getServer()
-    {
-        return this.Server;
-    }
-
-    public void setUserEmail(String userEmail)
-    {
-        this.UserEmail = userEmail;
-    }
-
-    public String getUserEmail()
-    {
-        return this.UserEmail;
-    }
-
-    public void setPassword(String password)
-    {
-        this.Password = password;
-    }
-
-    public String getPassword()
-    {
-        return this.Password;
-    }
-
-    public void setUseHttps(boolean useHttps)
-    {
-        this.UseHttps = useHttps;
-    }
-
-    public boolean getUseHttps()
-    {
-        return this.UseHttps;
-    }
 
 	  public boolean isDebug() {
 		  return Debug;
@@ -119,15 +81,6 @@ public class SparkWeaveConnector
 
 	  public void setDebug(boolean debug) {
 		  this.Debug = debug;
-	  }
-
-	  protected Client getClient() {
-		  if (client == null) {
-			  ClientConfig cc = new DefaultClientConfig();
-			  cc.getClasses().add(MultiPartWriter.class);
-			  client = Client.create(cc);
-		  }
-		  return client;
 	  }
 
     /**
@@ -162,30 +115,12 @@ public class SparkWeaveConnector
     public boolean isConnected() {
         return true;
     }
-
-    /**
-     * Are we connected
+    
+    /*
+     *  return a string for a session id?
      */
     @ConnectionIdentifier
-    public String connectionId() {
-        return "001";
-    }
-
-    /**
-     * Custom processor
-     *
-     * {@sample.xml ../../../doc/SparkWeave-connector.xml.sample sparkweave:my-processor}
-     *
-     * @param content Content to be processed
-     * @return Some string
-     */
-    @Processor
-    public String myProcessor(String content)
-    {
-        /*
-         * MESSAGE PROCESSOR CODE GOES HERE
-         */
-
-        return content;
+    public String getSessionId() {
+        return "SparkWeave";
     }
 }
