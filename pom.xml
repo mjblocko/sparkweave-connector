@@ -10,7 +10,7 @@
 
 	<properties>
 		<mule.version>3.3.0</mule.version>
-		<mule.devkit.version>3.3.0</mule.devkit.version>
+		<mule.devkit.version>3.3.1</mule.devkit.version>
 		<junit.version>4.9</junit.version>
 		<mockito.version>1.8.2</mockito.version>
 		<jersey.version>1.6</jersey.version>
@@ -111,25 +111,34 @@
 					<bootclasspath>${sun.boot.class.path}</bootclasspath>
 					<additionalparam>
 						-quiet
-						-federate JDK http://download.oracle.com/javase/6/docs/api/index.html?
+						-federate JDK
+						http://download.oracle.com/javase/6/docs/api/index.html?
 						-federationxml JDK
 						http://doclava.googlecode.com/svn/static/api/openjdk-6.xml
-						-hdf project.artifactId "${project.artifactId}"
-						-hdf project.groupId "${project.groupId}"
+						-hdf
+						project.artifactId "${project.artifactId}"
+						-hdf project.groupId
+						"${project.groupId}"
 						-hdf project.version "${project.version}"
-						-hdf project.name "${project.name}"
+						-hdf
+						project.name "${project.name}"
 						-hdf project.repo.name
 						"${project.distributionManagement.repository.name}"
-						-hdf project.repo.id "${project.distributionManagement.repository.id}"
+						-hdf
+						project.repo.id "${project.distributionManagement.repository.id}"
 						-hdf project.repo.url
 						"${project.distributionManagement.repository.url}"
-						-hdf project.snapshotRepo.name
+						-hdf
+						project.snapshotRepo.name
 						"${project.distributionManagement.snapshotRepository.name}"
-						-hdf project.snapshotRepo.id
+						-hdf
+						project.snapshotRepo.id
 						"${project.distributionManagement.snapshotRepository.id}"
-						-hdf project.snapshotRepo.url
+						-hdf
+						project.snapshotRepo.url
 						"${project.distributionManagement.snapshotRepository.url}"
-						-d ${project.build.directory}/apidocs
+						-d
+						${project.build.directory}/apidocs
 					</additionalparam>
 					<useStandardDocletOptions>false</useStandardDocletOptions>
 					<additionalJOption>-J-Xmx1024m</additionalJOption>
@@ -148,10 +157,10 @@
 						<configuration>
 							<rules>
 								<requireMavenVersion>
-									<version>[3.0.0,)</version>
+									<version>[3.0.4,)</version>
 								</requireMavenVersion>
 								<requireJavaVersion>
-									<version>[1.6.0,)</version>
+									<version>[1.6.0,1.7.1)</version>
 								</requireJavaVersion>
 							</rules>
 						</configuration>

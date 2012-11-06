@@ -9,11 +9,10 @@
         http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
         http://www.mulesoft.org/schema/mule/sparkweave http://www.mulesoft.org/schema/mule/sparkweave/1.0-SNAPSHOT/mule-sparkweave.xsd">
 
-    <sparkweave:config myProperty="Some string"
-            username="xxx" password="yyy"/>
+    <sparkweave:config Server="secure.sparkweave.com" UserEmail="mblock@sparkweave.com" UserPassword="123abc" />
 
-    <flow name="testFlow">
-        <sparkweave:my-processor content="Another string"/>
+    <flow name="listDirectory">
+        <sparkweave:list-directory path="/"/>
     </flow>
 
 </mule>
