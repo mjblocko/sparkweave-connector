@@ -15,14 +15,19 @@ import org.mule.api.annotations.param.Payload;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Processor;
-import org.sparkweave.filesync4j.client;
+
+import java.io.InputStream;
+import java.util.List;
+
+import org.sparkweave.filesync4j.client.FileSyncClient;
+
 
 /**
  * SparkWeave Cloud Connector
  * 
  * @author SparkWeave, LLC.
  */
-@Connector(name = "sparkweave", schemaVersion = "1.0-SNAPSHOT")
+@Connector(name = "sparkweave", schemaVersion = "3.3.0-SNAPSHOT")
 public class SparkWeaveConnector
 {
   private FileSyncClient FsClient;
@@ -30,7 +35,7 @@ public class SparkWeaveConnector
    * The server name of SparkWeave server
    */
   @Configurable
-  private String Server;
+  private String         Server;
 
   public void setServer(String server)
   {
@@ -52,7 +57,7 @@ public class SparkWeaveConnector
   {
     UserEmail = str;
   }
-  
+
   public String getUserEmail()
   {
     return UserEmail;
@@ -68,7 +73,7 @@ public class SparkWeaveConnector
   {
     UserPassword = str;
   }
-  
+
   public String getUserPassword()
   {
     return UserPassword;
@@ -86,7 +91,7 @@ public class SparkWeaveConnector
   {
     UseHttps = value;
   }
-  
+
   public boolean getUseHttps()
   {
     return UseHttps;
@@ -123,7 +128,7 @@ public class SparkWeaveConnector
   public void connect(@ConnectionKey String username, String password)
       throws ConnectionException
   {
-    FsClient  = new FileSyncClient();
+    FsClient = new FileSyncClient();
     FsClient.Login();
   }
 
@@ -155,4 +160,121 @@ public class SparkWeaveConnector
   {
     return "SparkWeave";
   }
+
+  /**
+   * Upload file to SparkWeave. The payload is an InputStream containing bytes
+   * of the data to be uploaded.
+   * 
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample
+   * sparkweave:upload-file}
+   * 
+   * @param fileDataObj
+   *          file to be uploaded
+   * @param overwrite
+   *          overwrite file in case it already exists
+   * @param path
+   *          The destination path to file
+   * 
+   * @return http response
+   * @throws Exception
+   *           exception
+   */
+  @SuppressWarnings("resource")
+  @Processor
+  public String uploadFile(@Payload InputStream fileDataObj,
+      @Optional @Default("false") Boolean overwrite, String path)
+      throws Exception
+  {
+    return FsClient.UploadFile(fileDataObj, overwrite, path);
+  }
+
+  /**
+   * Create new folder on SparkWeave
+   * 
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample
+   * sparkweave:create-folder}
+   * 
+   * @param path
+   *          full path of the folder to be created
+   * 
+   * @return http response
+   * @throws Exception
+   *           exception
+   */
+  @Processor
+  public String createFolder(String path) throws Exception
+  {
+    return FsClient.CreateFolder(path);
+  }
+  
+  /**
+   * Deletes a file or folder.
+   * 
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample sparkweave:delete}
+   * 
+   * @param accessToken
+   *            accessToken
+   * @param accessTokenSecret
+   *            access token secret
+   * @param path
+   *            full path to the file to be deleted
+   * 
+   * @return http response
+   * @throws Exception
+   *             exception
+   */
+  @Processor
+  public String delete(String path) throws Exception {
+    return FsClient.Delete(path);
+  }
+
+  /**
+   * Downloads a file from sparkweave
+   * 
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample sparkweave:download-file}
+   * 
+   * @param accessToken
+   *            accessToken
+   * @param accessTokenSecret
+   *            access token secret
+   * @param path
+   *            path to the file
+   * @param delete
+   *            delete the file on the sparkweave after download (ignored if
+   *            moveTo is set)
+   * @param moveTo
+   *            Specifies the destination path, including the new name for the
+   *            file or folder, relative to root.
+   * 
+   * @return Stream containing the downloaded file data
+   * @throws Exception
+   *             exception
+   */
+  @Processor
+  public InputStream downloadFile(String path,
+      @Optional @Default("false") boolean delete) throws Exception {
+    return FsClient.DownloadFile(path, delete);
+  }
+
+  /**
+   * Lists the content of the remote directory
+   * 
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample sparkweave:list}
+   * 
+   * @param accessToken
+   *            accessToken
+   * @param accessTokenSecret
+   *            access token secret
+   * @param path
+   *            path to the remote directory
+   * 
+   * @return List of files and/or folders
+   * @throws Exception
+   *             exception
+   */
+  @Processor
+  public List<String> list(String path) throws Exception {
+    return FsClient.GetFolder(path);
+  }
+
 }
