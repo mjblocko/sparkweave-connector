@@ -1,3 +1,10 @@
+/**
+ * Copyright (c) MuleSoft, Inc. All rights reserved. http://www.mulesoft.com
+ *
+ * The software in this package is published under the terms of the CPAL v1.0
+ * license, a copy of which has been included with this distribution in the
+ * LICENSE.md file.
+ */
 package sparkweave4j.client;
 
 import java.io.InputStream;
@@ -219,7 +226,7 @@ public class FileSyncClient
 
       jsonObject = (JSONObject) parser.parse(output);
       result = (JSONObject) jsonObject.get("result");
-      UserInfo userInfo = JsonHelpers.getJsonFromString(result.toJSONString(), UserInfo.class);
+      // UserInfo userInfo = JsonHelpers.getJsonFromString(result.toJSONString(), UserInfo.class);
       // System.out.println(userInfo.toString());
 
       isLoggedIn = true;
