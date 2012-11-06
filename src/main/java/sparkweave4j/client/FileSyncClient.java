@@ -1,4 +1,4 @@
-package org.sparkweave.filesync4j.client;
+package sparkweave4j.client;
 
 import java.io.InputStream;
 import java.net.URI;
@@ -22,13 +22,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-
-/*
- import org.json.simple.JSONArray;
- import org.json.simple.JSONObject;
- import org.json.simple.parser.JSONParser;
- import org.json.simple.parser.ParseException;
- */
 
 public class FileSyncClient
 {

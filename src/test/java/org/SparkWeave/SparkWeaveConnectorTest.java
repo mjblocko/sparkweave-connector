@@ -3,14 +3,11 @@
  */
 package org.SparkWeave;
 
-import org.mule.api.MuleEvent;
-import org.mule.construct.Flow;
-import org.mule.tck.FunctionalTestCase;
-import org.mule.tck.AbstractMuleTestCase;
-
+import org.junit.Before;
 import org.junit.Test;
+import java.util.List;
 
-public class SparkWeaveConnectorTest extends FunctionalTestCase
+public class SparkWeaveConnectorDriver
 {
     @Override
     protected String getConfigResources()
@@ -22,16 +19,12 @@ public class SparkWeaveConnectorTest extends FunctionalTestCase
     public void shouldObtaintAMetada() throws Exception
     {
 
-        // SparkWeaveConnector connector = new SparkWeaveConnector();
-        // connector.setServer()
-        // connector.setAccessToken(ACCESS_KEY);
-        // connector.setAccessTokenSecret(ACCESS_SECRET);
-        // connector.setAppKey(APP_KEY);
-        // connector.setAppSecret(APP_SECRET);
-        // connector.setServer("api.dropbox.com");
-        // connector.setDebug(true);
+        SparkWeaveConnector connector = new SparkWeaveConnector();
+        connector.setServer("mblock-vm1");
+        connector.setUserEmail("mblock@sparkweave.com");
+        connector.setPassword("123abc");
 
-        // List<String> list = connector.list("/My folder");
-        // System.out.println(Arrays.toString(list.toArray()));;
+        List<String> list = connector.list("/My folder");
+        System.out.println(Arrays.toString(list.toArray()));
     }
 }

@@ -1,4 +1,4 @@
-package org.sparkweave.filesync4j.client;
+package sparkweave4j.client;
 
 public class SwHelpers
 {

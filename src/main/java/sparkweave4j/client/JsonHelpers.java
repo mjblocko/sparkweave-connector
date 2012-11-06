@@ -1,4 +1,4 @@
-package org.sparkweave.filesync4j.client;
+package sparkweave4j.client;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

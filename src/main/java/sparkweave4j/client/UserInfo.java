@@ -1,4 +1,4 @@
-package org.sparkweave.filesync4j.client;
+package sparkweave4j.client;
 
 import java.util.Arrays;
 
@@ -119,7 +119,8 @@ public class UserInfo
     result.append(" RetainSmall   : " + RetainSmall() + NEW_LINE);
     result.append(" CabinetUsed   : " + CabinetUsed() + NEW_LINE);
     result.append(" RerouteSize   : " + RerouteSize() + NEW_LINE);
-    result.append(" Permissions   : " + Arrays.toString(Permissions()) + NEW_LINE);
+    result.append(" Permissions   : " + Arrays.toString(Permissions())
+        + NEW_LINE);
     result.append("}");
 
     return result.toString();
