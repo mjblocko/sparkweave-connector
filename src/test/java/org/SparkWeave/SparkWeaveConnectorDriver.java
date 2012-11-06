@@ -32,7 +32,7 @@ public class SparkWeaveConnectorDriver
         connector.setServer("mblock-vm1");
         connector.setUserEmail("mblock@sparkweave.com");
         connector.setUserPassword("123abc");
-        connector.connect();
+        connector.connect("mblock-vm1", "mblock@sparkweave.com", "123abc");
 
         List<String> list = connector.list("/");
         System.out.println(Arrays.toString(list.toArray()));
