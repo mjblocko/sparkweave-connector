@@ -21,9 +21,12 @@ import org.mule.api.annotations.param.ConnectionKey;
 import org.mule.api.annotations.param.Default;
 import org.mule.api.annotations.param.Optional;
 import org.mule.api.annotations.param.Payload;
+import org.mule.api.Connection;
 import org.mule.api.ConnectionException;
 import org.mule.api.annotations.Configurable;
 import org.mule.api.annotations.Processor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.InputStream;
 import java.util.List;
@@ -36,9 +39,10 @@ import sparkweave4j.client.FileSyncClient;
  * 
  * @author SparkWeave, LLC.
  */
-@Connector(name = "sparkweave", schemaVersion = "3.3.0-SNAPSHOT")
+@Connector(name = "sparkweave", schemaVersion = "1.0.1-SNAPSHOT")
 public class SparkWeaveConnector
 {
+  private Logger logger = LoggerFactory.getLogger(Connection.class);
   private FileSyncClient FsClient;
   /**
    * The server name of SparkWeave server
@@ -143,6 +147,7 @@ public class SparkWeaveConnector
     FsClient.Server(ckServer);
     FsClient.UserEmail(ckUserEmail);
     FsClient.Password(ckPassword);
+    FsClient.UseHttps(UseHttps);
     FsClient.Login();
   }
 

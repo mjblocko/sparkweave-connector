@@ -25,14 +25,18 @@ public class SparkWeaveConnectorDriver
     }
 
     @Test
-    public void shouldObtaintAMetada() throws Exception
+    public void shouldObtainListOfDirectory() throws Exception
     {
+      String server = "secure.sparkweave.com";
+      String userEmail = "connector@mulesoft.org";
+      String password = "Donkey1";
 
         SparkWeaveConnector connector = new SparkWeaveConnector();
-        connector.setServer("mblock-vm1");
-        connector.setUserEmail("mblock@sparkweave.com");
-        connector.setUserPassword("123abc");
-        connector.connect("mblock-vm1", "mblock@sparkweave.com", "123abc");
+        connector.setServer(server);
+        connector.setUseHttps(true);
+        connector.setUserEmail(userEmail);
+        connector.setUserPassword(password);
+        connector.connect(server, userEmail, password);
 
         List<String> list = connector.list("/");
         System.out.println(Arrays.toString(list.toArray()));
