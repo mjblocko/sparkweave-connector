@@ -25,7 +25,7 @@ public class SparkWeaveConnectorDriver
     }
 
     @Test
-    public void shouldObtainListOfDirectory() throws Exception
+    public void shouldObtainListOfRootDirectory() throws Exception
     {
       String server = "secure.sparkweave.com";
       String userEmail = "connector@mulesoft.org";

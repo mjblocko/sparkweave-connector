@@ -39,7 +39,7 @@ import sparkweave4j.client.FileSyncClient;
  * 
  * @author SparkWeave, LLC.
  */
-@Connector(name = "sparkweave", schemaVersion = "1.0.1-SNAPSHOT")
+@Connector(name = "sparkweave", schemaVersion = "1.0", configElementName="config")
 public class SparkWeaveConnector
 {
   private Logger logger = LoggerFactory.getLogger(Connection.class);
