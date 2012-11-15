@@ -20,10 +20,6 @@
 		<jdk.version>1.6</jdk.version>
 	</properties>
 
-	<build>
-		<defaultGoal>compile</defaultGoal>
-		<finalName>${project.artifactId}</finalName>
-	</build>
 	<dependencies>
 		<dependency>
 			<groupId>org.mule</groupId>
@@ -104,7 +100,7 @@
 		<repository>
 			<id>mulesoft-releases</id>
 			<name>MuleSoft Releases Repository</name>
-			<url>http://repository.mulesoft.org/releases/</url>
+			<url>https://repository.mulesoft.org/releases/</url>
 			<layout>default</layout>
 		</repository>
 		<repository>

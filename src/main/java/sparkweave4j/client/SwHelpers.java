@@ -9,7 +9,7 @@ package sparkweave4j.client;
 
 public class SwHelpers
 {
-  static String AdaptPath(String path)
+  static String adaptPath(String path)
   {
     if (path.startsWith("/")) {
       path = path.substring(1);
@@ -17,7 +17,7 @@ public class SwHelpers
     return path;
   }
 
-  static String RemoveTrailingCharacter(String str, char character)
+  static String removeTrailingCharacter(String str, char character)
   {
     if (str == null || str.length() == 0) {
       return str;
@@ -28,7 +28,7 @@ public class SwHelpers
     return str;
   }
 
-  static String TrimEnd(String input, String suffixToRemove)
+  static String trimEnd(String input, String suffixToRemove)
   {
     if (input != null 
     && suffixToRemove != null
@@ -38,16 +38,16 @@ public class SwHelpers
     return input;
   }
 
-  static String MakePathUnix(String path)
+  static String makePathUnix(String path)
   {
     String nPath = path;
     nPath = nPath.replace("\\", "/").replace("//", "/");
-    return (nPath == "/") ? nPath : TrimEnd(nPath, "/");
+    return (nPath == "/") ? nPath : trimEnd(nPath, "/");
   }
 
-  static String RelativePath(String absPath)
+  static String relativePath(String absPath)
   {
-    String path = MakePathUnix(absPath);
+    String path = makePathUnix(absPath);
     return path.startsWith("/") ? path.substring(1) : path;
   }
 }

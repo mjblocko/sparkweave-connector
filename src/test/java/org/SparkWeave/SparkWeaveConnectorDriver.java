@@ -32,10 +32,7 @@ public class SparkWeaveConnectorDriver
       String password = "Donkey1";
 
         SparkWeaveConnector connector = new SparkWeaveConnector();
-        connector.setServer(server);
         connector.setUseHttps(true);
-        connector.setUserEmail(userEmail);
-        connector.setUserPassword(password);
         connector.connect(server, userEmail, password);
 
         List<String> list = connector.list("/");

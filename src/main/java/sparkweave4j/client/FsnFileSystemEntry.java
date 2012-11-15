@@ -24,94 +24,96 @@ public class FsnFileSystemEntry
   private String mime_type;
   private boolean is_deleted;
 
-  public void Hash(String str)
+  public void hash(String str)
   {
     hash = str;
   }
 
-  public String Hash()
+  public String hash()
   {
     return hash;
   }
 
-  public void Revision(String str)
+  public void revision(String str)
   {
     revision = str;
   }
 
-  public String Revision()
+  public String revision()
   {
     return revision;
   }
 
-  public void Bytes(long value)
+  public void bytes(long value)
   {
     bytes = value;
   }
 
-  public long Bytes()
+  public long bytes()
   {
     return bytes;
   }
 
-  public void ThumbExists(boolean value)
+  public void thumbExists(boolean value)
   {
     thumb_exists = value;
   }
 
-  public boolean ThumbExists()
+  public boolean thumbExists()
   {
     return thumb_exists;
   }
 
-  public void Rev(String str)
+  public void rev(String str)
   {
     rev = str;
   }
 
-  public String Rev()
+  public String rev()
   {
     return rev;
   }
 
-  public void Modified(String str)
+  public void modified(String str)
   {
     modified = str;
   }
 
-  public String Modified()
+  public String modified()
   {
     return modified;
   }
 
-  public void AbsolutePath(String str)
+  public void absolutePath(String str)
   {
     String absolutePath = str;
   }
-  public String RelativePath() { 
-    return SwHelpers.RelativePath(AbsolutePath());
+  
+  public String relativePath() { 
+    return SwHelpers.relativePath(absolutePath());
   }
-  public String AbsolutePath()
+  
+  public String absolutePath()
   {
     return absolutePath;
   }
 
-  public void IsDirectory(boolean value)
+  public void isDirectory(boolean value)
   {
     is_dir = value;
   }
 
-  public boolean IsDirectory()
+  public boolean isDirectory()
   {
     return is_dir;
   }
 
-  public void Size(long value)
+  public void size(long value)
   {
     size = value;
   }
 
-  public long Size()
+  public long size()
   {
     return size;
   }
@@ -123,69 +125,69 @@ public class FsnFileSystemEntry
     String NEW_LINE = System.getProperty("line.separator");
 
     sb.append(this.getClass().getName() + " Object {" + NEW_LINE);
-    sb.append("Absolute Path   : " + AbsolutePath() + NEW_LINE);
-    sb.append("Relative Path   : " + RelativePath() + NEW_LINE);
-    sb.append("RelativeDirPath : " + RelativeDirectoryPath() + NEW_LINE);
-    sb.append("Rev             : " + Rev() + NEW_LINE);
-    sb.append("Hash            : " + Hash() + NEW_LINE);
-    sb.append("Revision        : " + Revision() + NEW_LINE);
-    sb.append("Identity        : " + Identity() + NEW_LINE);
-    sb.append("Size            : " + Size() + NEW_LINE);
-    sb.append("Modified        : " + Modified() + NEW_LINE);
-    sb.append("IsDeleted       : " + IsDeleted() + NEW_LINE);
-    sb.append("ThumbExists     : " + ThumbExists() + NEW_LINE);
-    sb.append("MimeType        : " + MimeType() + NEW_LINE);
-    sb.append("Icon            : " + Icon() + NEW_LINE);
+    sb.append("Absolute Path   : " + absolutePath() + NEW_LINE);
+    sb.append("Relative Path   : " + relativePath() + NEW_LINE);
+    sb.append("RelativeDirPath : " + relativeDirectoryPath() + NEW_LINE);
+    sb.append("Rev             : " + rev() + NEW_LINE);
+    sb.append("Hash            : " + hash() + NEW_LINE);
+    sb.append("Revision        : " + revision() + NEW_LINE);
+    sb.append("Identity        : " + identity() + NEW_LINE);
+    sb.append("Size            : " + size() + NEW_LINE);
+    sb.append("Modified        : " + modified() + NEW_LINE);
+    sb.append("IsDeleted       : " + isDeleted() + NEW_LINE);
+    sb.append("ThumbExists     : " + thumbExists() + NEW_LINE);
+    sb.append("MimeType        : " + mimeType() + NEW_LINE);
+    sb.append("Icon            : " + icon() + NEW_LINE);
     return sb.toString();
   }
 
-  private String Icon()
+  private String icon()
   {
     // TODO Auto-generated method stub
     return null;
   }
   
-  private void Icon(String str)
+  private void icon(String str)
   {
     Icon = str;
   }
 
-  private String MimeType()
+  private String mimeType()
   {
     return mime_type;
   }
   
-  private void MimeType(String str)
+  private void mimeType(String str)
   {
     mime_type = str;
   }
 
-  private Boolean IsDeleted()
+  private Boolean isDeleted()
   {
     return null;
   }
   
-  private void IsDeleted(boolean value)
+  private void isDeleted(boolean value)
   {
     is_deleted = value;
   }
 
-  public String Identity()
+  public String identity()
   {
-      return IsDirectory() ? Hash() : Revision();
+      return isDirectory() ? hash() : revision();
   }
 
-  private String RelativeDirectoryPath()
+  private String relativeDirectoryPath()
   {
-    String absolutePath = AbsolutePath();
+    String absolutePath = absolutePath();
     if (absolutePath.isEmpty()) {
       return absolutePath;
     }
     
-    String absPath = SwHelpers.MakePathUnix(absolutePath);
+    String absPath = SwHelpers.makePathUnix(absolutePath);
     int idx = absPath.lastIndexOf("/");
     absPath = idx <= 0 ? "" : absPath.substring(0, idx);
 
-    return SwHelpers.RelativePath(absPath);
+    return SwHelpers.relativePath(absPath);
   }
 }

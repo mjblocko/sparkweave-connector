@@ -37,8 +37,8 @@ application:
 
     <dependency>
         <groupId>org.mule.modules</groupId>
-        <artifactId>mule-module-facebook</artifactId>
-        <version>2.0-SNAPSHOT</version>
+        <artifactId>mule-module-sparkweave</artifactId>
+        <version>1.0.1-SNAPSHOT</version>
     </dependency>
 
 Configuration
@@ -46,16 +46,16 @@ Configuration
 
 You can configure the connector as follows:
 
-    <facebook:config server="value" user="value" password="value" useHttps="value"/>
+    <sparkweave:config Server="value" UserEmail="value" UserPassword="value" UseHttps="value"/>
 
 Here is detailed list of all the configuration attributes:
 
 | attribute | description | optional | default value |
 |:-----------|:-----------|:---------|:--------------|
-|server| Name of SparkWeave Server.|no||
-|user| User email address.|no|
-|pasword|The application secret|no|
-|useHttps| true is server is only using https(default is false)|yes|
+|Server| Name of SparkWeave Server|no||
+|UserEmail| User email address|no|
+|UserPassword|User's password|no|
+|UseHttps| true is server is only using https(default is false)|yes|
 
 
 

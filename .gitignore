@@ -4,3 +4,13 @@
 *.jar
 *.war
 *.ear
+.classpath
+.idea
+.settings
+.project
+.jruby
+*.iml
+*.ipr
+*.iws
+target
+bin

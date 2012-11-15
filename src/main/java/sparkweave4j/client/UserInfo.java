@@ -21,57 +21,57 @@ public class UserInfo
   private long     reroute_size;
   private String[] permissions;
 
-  public long RetainFulcrum()
+  public long retainFulcrum()
   {
     return retain_fulcrum;
   }
 
-  public void RetainFulcrum(long fulcrum)
+  public void retainFulcrum(long fulcrum)
   {
     retain_fulcrum = fulcrum;
   }
 
-  public long MaxFileSize()
+  public long maxFileSize()
   {
     return max_file_size;
   }
 
-  public void MaxFileSize(long size)
+  public void maxFileSize(long size)
   {
     max_file_size = size;
   }
 
-  public boolean DefaultNotificationPolicy()
+  public boolean defaultNotificationPolicy()
   {
     return default_notification_policy;
   }
 
-  public void DefaultNotificationPolicy(boolean value)
+  public void defaultNotificationPolicy(boolean value)
   {
     default_notification_policy = value;
   }
 
-  public long RetainLarge()
+  public long retainLarge()
   {
     return retain_large;
   }
 
-  public void RetainLarge(long value)
+  public void retainLarge(long value)
   {
     retain_large = value;
   }
 
-  public long CabinetSize()
+  public long cabinetSize()
   {
     return cabinet_size;
   }
 
-  public void CabinetSize(long size)
+  public void cabinetSize(long size)
   {
     cabinet_size = size;
   }
 
-  public long RetainSmall()
+  public long retainSmall()
   {
     return retain_small;
   }
@@ -81,32 +81,32 @@ public class UserInfo
     retain_small = size;
   }
 
-  public long CabinetUsed()
+  public long cabinetUsed()
   {
     return cabinet_used;
   }
 
-  public void CabinetUsed(long size)
+  public void cabinetUsed(long size)
   {
     cabinet_used = size;
   }
 
-  public long RerouteSize()
+  public long rerouteSize()
   {
     return reroute_size;
   }
 
-  public void RerouteSize(long size)
+  public void rerouteSize(long size)
   {
     reroute_size = size;
   }
 
-  public String[] Permissions()
+  public String[] permissions()
   {
     return permissions;
   }
 
-  public void Permissions(String[] perms)
+  public void permissions(String[] perms)
   {
     permissions = perms;
   }
@@ -118,15 +118,15 @@ public class UserInfo
     String NEW_LINE = System.getProperty("line.separator");
 
     result.append(this.getClass().getName() + " Object {" + NEW_LINE);
-    result.append(" RetainFulcrum : " + RetainFulcrum() + NEW_LINE);
-    result.append(" MaxFileSize   : " + MaxFileSize() + NEW_LINE);
-    result.append(" DefNoticPolicy: " + DefaultNotificationPolicy() + NEW_LINE);
-    result.append(" RetainLarge   : " + RetainLarge() + NEW_LINE);
-    result.append(" CabinetSize   : " + CabinetSize() + NEW_LINE);
-    result.append(" RetainSmall   : " + RetainSmall() + NEW_LINE);
-    result.append(" CabinetUsed   : " + CabinetUsed() + NEW_LINE);
-    result.append(" RerouteSize   : " + RerouteSize() + NEW_LINE);
-    result.append(" Permissions   : " + Arrays.toString(Permissions())
+    result.append(" RetainFulcrum : " + retainFulcrum() + NEW_LINE);
+    result.append(" MaxFileSize   : " + maxFileSize() + NEW_LINE);
+    result.append(" DefNoticPolicy: " + defaultNotificationPolicy() + NEW_LINE);
+    result.append(" RetainLarge   : " + retainLarge() + NEW_LINE);
+    result.append(" CabinetSize   : " + cabinetSize() + NEW_LINE);
+    result.append(" RetainSmall   : " + retainSmall() + NEW_LINE);
+    result.append(" CabinetUsed   : " + cabinetUsed() + NEW_LINE);
+    result.append(" RerouteSize   : " + rerouteSize() + NEW_LINE);
+    result.append(" Permissions   : " + Arrays.toString(permissions())
         + NEW_LINE);
     result.append("}");
 

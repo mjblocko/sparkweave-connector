@@ -43,52 +43,52 @@ public class FileSyncClient
 
   private boolean             UseHttps;
 
-  public void Server(String server)
+  public void server(String server)
   {
     Server = server;
   }
 
-  public String Server()
+  public String server()
   {
     return Server;
   }
 
-  public void UserEmail(String userEmail)
+  public void userEmail(String userEmail)
   {
     UserEmail = userEmail;
   }
 
-  public String UserEmail()
+  public String userEmail()
   {
     return UserEmail;
   }
 
-  public void Password(String password)
+  public void password(String password)
   {
     Password = password;
   }
 
-  public String Password()
+  public String password()
   {
     return Password;
   }
 
-  public void MiddleWareToken(String token)
+  public void middleWareToken(String token)
   {
     MiddleWareToken = token;
   }
 
-  public String MiddleWareToken()
+  public String middleWareToken()
   {
     return MiddleWareToken;
   }
 
-  public void UseHttps(boolean useHttps)
+  public void useHttps(boolean useHttps)
   {
     UseHttps = useHttps;
   }
 
-  public boolean UseHttps()
+  public boolean useHttps()
   {
     return UseHttps;
   }
@@ -97,7 +97,7 @@ public class FileSyncClient
   {
   }
 
-  static Cookie FindCookieByName(List<Cookie> cookies, String name)
+  static Cookie findCookieByName(List<Cookie> cookies, String name)
   {
     for (Cookie cookie : cookies) {
       if (cookie.getName().equals(name)) {
@@ -108,7 +108,7 @@ public class FileSyncClient
     return null;
   }
 
-  static NewCookie FindNewCookieByName(List<NewCookie> cookies, String name)
+  static NewCookie findNewCookieByName(List<NewCookie> cookies, String name)
   {
     for (NewCookie cookie : cookies) {
       if (cookie.getName().equals(name)) {
@@ -119,7 +119,7 @@ public class FileSyncClient
     return null;
   }
 
-  private void AddCookies(WebResource.Builder wrBuilder)
+  private void addCookies(WebResource.Builder wrBuilder)
   {
     if (Cookies != null) {
       for (Cookie cookie : Cookies) {
@@ -128,7 +128,7 @@ public class FileSyncClient
     }
   }
 
-  private WebResource.Builder CreateClient(String path)
+  private WebResource.Builder createClient(String path)
   {
     if (JerseyClient == null) {
       ClientConfig cc = new DefaultClientConfig();
@@ -136,49 +136,49 @@ public class FileSyncClient
       JerseyClient = Client.create(cc);
     }
     UriBuilder uriBuilder = UriBuilder.fromUri("http://localhost");
-    uriBuilder = uriBuilder.scheme((UseHttps() == true) ? "https" : "http");
-    URI uri = uriBuilder.host(Server()).build();
+    uriBuilder = uriBuilder.scheme((useHttps() == true) ? "https" : "http");
+    URI uri = uriBuilder.host(server()).build();
 
     System.out.println(uri);
 
     WebResource resource = JerseyClient.resource(uri).path(path);
     WebResource.Builder builder = resource.getRequestBuilder();
-    AddCookies(builder);
+    addCookies(builder);
 
     return builder;
   }
 
-  private String CreateMetadataResource()
+  private String createMetadataResource()
   {
     return String.format("/api/vfs/%s/metadata/%s/", API_VERSION, ROOT_PARAM);
   }
 
-  private String CreateFolderResource()
+  private String createFolderResource()
   {
     return String.format("/api/vfs/%s/fileops/create_folder", API_VERSION);
   }
 
-  private String CreateUploadFileResource(String path)
+  private String createUploadFileResource(String path)
   {
     return String.format("/api/vfs/%s/files_put/%s/%s", API_VERSION, ROOT_PARAM, path);
   }
 
-  private String CreateDownloadFileResource(String path)
+  private String createDownloadFileResource(String path)
   {
     return String.format("/api/vfs/%s/files/%s/%s", API_VERSION, ROOT_PARAM, path);
   }
 
-  private String CreateDeleteResource()
+  private String createDeleteResource()
   {
     return String.format("/api/vfs/%s/fileops/delete", API_VERSION);
   }
 
-  public boolean Login()
+  public boolean login()
   {
     boolean isLoggedIn = false;
 
     try {
-      WebResource.Builder builder = CreateClient("/api/auth/login");
+      WebResource.Builder builder = createClient("/api/auth/login");
       ClientResponse response = builder.accept("application/json").get(ClientResponse.class);
 
       if (response.getStatus() != 200) {
@@ -199,15 +199,15 @@ public class FileSyncClient
       JSONObject jsonObject = (JSONObject) parser.parse(output);
       JSONObject result = (JSONObject) jsonObject.get("result");
       String token = (String) result.get("csrf_token");
-      MiddleWareToken(token);
+      middleWareToken(token);
 
       MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
-      formData.add("csrfmiddlewaretoken", MiddleWareToken());
-      formData.add("username", UserEmail());
-      formData.add("password", Password());
+      formData.add("csrfmiddlewaretoken", middleWareToken());
+      formData.add("username", userEmail());
+      formData.add("password", password());
       formData.add("client", "SyncWeave");
 
-      builder = CreateClient("/api/auth/login");
+      builder = createClient("/api/auth/login");
       response = builder.accept("application/json").post(ClientResponse.class, formData);
       if (response.getStatus() != 200) {
         throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
@@ -216,8 +216,8 @@ public class FileSyncClient
       // Update the dw-user-cookie value
       if (response.getCookies() != null) {
         List<NewCookie> cookies = response.getCookies();
-        NewCookie newDwCookie = FindNewCookieByName(cookies, "dw-user-cookie");
-        Cookie oldDwCookie = FindCookieByName(Cookies, "dw-user-cookie");
+        NewCookie newDwCookie = findNewCookieByName(cookies, "dw-user-cookie");
+        Cookie oldDwCookie = findCookieByName(Cookies, "dw-user-cookie");
         Cookies.remove(oldDwCookie);
         Cookies.add(newDwCookie.toCookie());
       }
@@ -237,15 +237,15 @@ public class FileSyncClient
     return isLoggedIn;
   }
 
-  public List<String> GetRoot() throws Exception
+  public List<String> getRoot() throws Exception
   {
-    return GetFolder("/");
+    return getFolder("/");
   }
 
-  public List<String> GetFolder(String path) throws Exception
+  public List<String> getFolder(String path) throws Exception
   {
-    final String apiUrl = CreateMetadataResource() + SwHelpers.AdaptPath(path);
-    WebResource.Builder builder = CreateClient(apiUrl);
+    final String apiUrl = createMetadataResource() + SwHelpers.adaptPath(path);
+    WebResource.Builder builder = createClient(apiUrl);
 
     ClientResponse response = builder.accept("application/json").get(ClientResponse.class);
 
@@ -264,16 +264,16 @@ public class FileSyncClient
     return paths;
   }
 
-  public String UploadFile(InputStream fileDataObj, boolean overwrite, String path) throws Exception
+  public String uploadFile(InputStream fileDataObj, boolean overwrite, String path) throws Exception
   {
     String output = null;
-    String apiUrl = CreateUploadFileResource(path);
+    String apiUrl = createUploadFileResource(path);
 
     apiUrl.concat(String.format("?overwrite=%s", Boolean.valueOf(overwrite)));
 
     final InputStream fileData = (InputStream) fileDataObj;
 
-    WebResource.Builder builder = CreateClient(apiUrl);
+    WebResource.Builder builder = createClient(apiUrl);
 
     output = builder.type(MediaType.MULTIPART_FORM_DATA).accept("application/json").post(String.class, fileData);
 
@@ -281,15 +281,15 @@ public class FileSyncClient
 
   }
 
-  public String CreateFolder(String path) throws Exception
+  public String createFolder(String path) throws Exception
   {
-    final String apiUrl = CreateFolderResource();
-    WebResource.Builder builder = CreateClient(apiUrl);
+    final String apiUrl = createFolderResource();
+    WebResource.Builder builder = createClient(apiUrl);
 
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
 
-    path = SwHelpers.AdaptPath(path);
-    formData.add("csrfmiddlewaretoken", MiddleWareToken());
+    path = SwHelpers.adaptPath(path);
+    formData.add("csrfmiddlewaretoken", middleWareToken());
     formData.add("root", ROOT_PARAM);
     formData.add("path", path);
     ClientResponse response = builder.accept("application/json").post(ClientResponse.class, formData);
@@ -310,16 +310,16 @@ public class FileSyncClient
 
   }
 
-  public String Delete(String path) throws Exception
+  public String delete(String path) throws Exception
   {
     String output = null;
-    final String apiUrl = CreateDeleteResource();
-    WebResource.Builder builder = CreateClient(apiUrl);
+    final String apiUrl = createDeleteResource();
+    WebResource.Builder builder = createClient(apiUrl);
 
     MultivaluedMap<String, String> formData = new MultivaluedMapImpl();
 
-    path = SwHelpers.AdaptPath(path);
-    formData.add("csrfmiddlewaretoken", MiddleWareToken());
+    path = SwHelpers.adaptPath(path);
+    formData.add("csrfmiddlewaretoken", middleWareToken());
     formData.add("root", ROOT_PARAM);
     formData.add("path", path);
     ClientResponse response = builder.accept("application/json").post(ClientResponse.class, formData);
@@ -339,15 +339,15 @@ public class FileSyncClient
     return output;
   }
 
-  public InputStream DownloadFile(String path, boolean delete) throws Exception
+  public InputStream downloadFile(String path, boolean delete) throws Exception
   {
-    String apiUrl = CreateDownloadFileResource(path);
-    WebResource.Builder builder = CreateClient(apiUrl);
+    String apiUrl = createDownloadFileResource(path);
+    WebResource.Builder builder = createClient(apiUrl);
 
     InputStream response = builder.get(InputStream.class);
 
     if (delete) {
-      Delete(path);
+      delete(path);
     }
     return response;
   }

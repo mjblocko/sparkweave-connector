@@ -39,17 +39,23 @@ import sparkweave4j.client.FileSyncClient;
  * 
  * @author SparkWeave, LLC.
  */
-@Connector(name = "sparkweave", schemaVersion = "1.0", configElementName="config")
+@Connector(name = "sparkweave", schemaVersion = "1.0", configElementName="config", friendlyName="SparkWeave Connector")
 public class SparkWeaveConnector
 {
   private Logger logger = LoggerFactory.getLogger(Connection.class);
+  
   private FileSyncClient FsClient;
-  /**
-   * The server name of SparkWeave server
-   */
-  @Configurable
   private String         Server;
+  private String         UserEmail;
+  private String         UserPassword;
+  
+  @Default("false")
+  private boolean        Debug;
+  
+  @Default("false")
+  private boolean        UseHttps;
 
+  
   public void setServer(String server)
   {
     this.Server = server;
@@ -59,12 +65,6 @@ public class SparkWeaveConnector
   {
     return Server;
   }
-
-  /**
-   * The user email address to access SparkWeave FileSync Services
-   */
-  @Configurable
-  private String UserEmail;
 
   public void setUserEmail(String str)
   {
@@ -76,12 +76,6 @@ public class SparkWeaveConnector
     return UserEmail;
   }
 
-  /**
-   * The user password to access SparkWeave FileSync Services
-   */
-  @Configurable
-  private String UserPassword;
-
   public void setUserPassword(String str)
   {
     UserPassword = str;
@@ -92,14 +86,6 @@ public class SparkWeaveConnector
     return UserPassword;
   }
 
-  /**
-   * Set to true to use https communication (default: false)
-   */
-  @Configurable
-  @Optional
-  @Default("false")
-  private boolean UseHttps;
-
   public void setUseHttps(boolean value)
   {
     UseHttps = value;
@@ -109,14 +95,6 @@ public class SparkWeaveConnector
   {
     return UseHttps;
   }
-
-  /**
-   * Turn debug on
-   */
-  @Configurable
-  @Optional
-  @Default("false")
-  private boolean Debug;
 
   public boolean isDebug()
   {
@@ -144,11 +122,11 @@ public class SparkWeaveConnector
       throws ConnectionException
   {
     FsClient = new FileSyncClient();
-    FsClient.Server(ckServer);
-    FsClient.UserEmail(ckUserEmail);
-    FsClient.Password(ckPassword);
-    FsClient.UseHttps(UseHttps);
-    FsClient.Login();
+    FsClient.server(ckServer);
+    FsClient.userEmail(ckUserEmail);
+    FsClient.password(ckPassword);
+    FsClient.useHttps(UseHttps);
+    FsClient.login();
   }
 
   /**
@@ -203,7 +181,7 @@ public class SparkWeaveConnector
       @Optional @Default("false") Boolean overwrite, String path)
       throws Exception
   {
-    return FsClient.UploadFile(fileDataObj, overwrite, path);
+    return FsClient.uploadFile(fileDataObj, overwrite, path);
   }
 
   /**
@@ -222,7 +200,7 @@ public class SparkWeaveConnector
   @Processor
   public String createFolder(String path) throws Exception
   {
-    return FsClient.CreateFolder(path);
+    return FsClient.createFolder(path);
   }
   
   /**
@@ -243,7 +221,7 @@ public class SparkWeaveConnector
    */
   @Processor
   public String delete(String path) throws Exception {
-    return FsClient.Delete(path);
+    return FsClient.delete(path);
   }
 
   /**
@@ -271,7 +249,7 @@ public class SparkWeaveConnector
   @Processor
   public InputStream downloadFile(String path,
       @Optional @Default("false") boolean delete) throws Exception {
-    return FsClient.DownloadFile(path, delete);
+    return FsClient.downloadFile(path, delete);
   }
 
   /**
@@ -292,7 +270,7 @@ public class SparkWeaveConnector
    */
   @Processor
   public List<String> list(String path) throws Exception {
-    return FsClient.GetFolder(path);
+    return FsClient.getFolder(path);
   }
 
 }
