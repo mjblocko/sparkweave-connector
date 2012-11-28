@@ -1,5 +1,5 @@
 <!-- BEGIN_INCLUDE(sparkweave:upload-file) -->
-    <sparkweave:upload-file path="foo/bar"/>
+    <sparkweave:upload-file path="foo/bar" filename="test.txt"/>
 <!-- END_INCLUDE(sparkweave:upload-file) -->
 <!-- BEGIN_INCLUDE(sparkweave:create-folder) -->
     <sparkweave:create-folder path="foo/bar"/>
