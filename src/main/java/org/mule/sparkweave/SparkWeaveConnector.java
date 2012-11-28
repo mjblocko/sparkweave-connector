@@ -162,8 +162,7 @@ public class SparkWeaveConnector
    * Upload file to SparkWeave. The payload is an InputStream containing bytes
    * of the data to be uploaded.
    * 
-   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample
-   * sparkweave:upload-file}
+   * {@sample.xml ../../../doc/sparkweave-connector.xml.sample sparkweave:upload-file}
    * 
    * @param fileDataObj
    *          file to be uploaded
@@ -171,6 +170,8 @@ public class SparkWeaveConnector
    *          overwrite file in case it already exists
    * @param path
    *          The destination path to file
+   * @param filename
+   *          The destination filename
    * 
    * @return http response
    * @throws Exception
@@ -178,7 +179,9 @@ public class SparkWeaveConnector
    */
   @Processor
   public String uploadFile(@Payload InputStream fileDataObj,
-      @Optional @Default("false") Boolean overwrite, String path)
+                           @Optional @Default("false") Boolean overwrite, 
+                           String path,
+                           String filename)
       throws Exception
   {
     return FsClient.uploadFile(fileDataObj, overwrite, path);
