@@ -178,7 +178,8 @@ public class SparkWeaveConnector
    *           exception
    */
   @Processor
-  public String uploadFile(@Payload InputStream fileDataObj,
+  // public String uploadFile(@Payload InputStream fileDataObj,
+  public String uploadFile(@Optional @Default("#[payload]") InputStream fileDataObj,
                            @Optional @Default("false") Boolean overwrite, 
                            String path,
                            String filename)
