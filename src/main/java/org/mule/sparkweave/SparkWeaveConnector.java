@@ -160,9 +160,7 @@ public class SparkWeaveConnector
                            String filename)
       throws Exception
   {
-    System.out.println("Running uploadFile");
     String result = FsClient.uploadFile(fileDataObj, overwrite, path, filename);
-    System.out.println("Exiting uploadFile");
     return result;
   }
 

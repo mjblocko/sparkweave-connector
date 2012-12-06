@@ -271,8 +271,8 @@ public class FileSyncClient
     String absPath = SwHelpers.pathCombine(path, filename);
     String apiUrl = createUploadFileResource(absPath);
 
-    System.out.println("Path is "+path);
-    System.out.println("filename is "+filename);
+    // System.out.println("Path is "+path);
+    // System.out.println("filename is "+filename);
     System.out.println("apiUrl is " + apiUrl);
 
     apiUrl.concat(String.format("?overwrite=%s", Boolean.valueOf(overwrite)));
@@ -310,7 +310,7 @@ public class FileSyncClient
     }
 
     String output = response.getEntity(String.class);
-    System.out.println("Create_Folder : " + output);
+    // System.out.println("Create_Folder : " + output);
 
     return output;
 
@@ -340,7 +340,7 @@ public class FileSyncClient
     }
 
     output = response.getEntity(String.class);
-    System.out.println("Delete file/folder : " + output);
+    // System.out.println("Delete file/folder : " + output);
 
     return output;
   }
