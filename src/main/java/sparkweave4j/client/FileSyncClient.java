@@ -269,7 +269,8 @@ public class FileSyncClient
   {
     String output = null;
     String absPath = SwHelpers.pathCombine(path, filename);
-    String apiUrl = createUploadFileResource(absPath);
+    String absPath2 = SwHelpers.makePathUnix(absPath);
+    String apiUrl = createUploadFileResource(absPath2);
 
     // System.out.println("Path is "+path);
     // System.out.println("filename is "+filename);
