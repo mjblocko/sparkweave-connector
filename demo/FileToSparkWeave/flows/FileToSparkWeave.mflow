@@ -1,108 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="FileToSparkWeave">
-    <global-element name="Sparkweave" type="http://www.mulesoft.org/schema/mule/sparkweave/config" entity-id="Sparkweave#1">
+    <global-element type="http://www.mulesoft.org/schema/mule/sparkweave/config" name="SparkWeave Connector" entity-id="SparkWeave Connector#1">
         <properties>
-            <property name="name" value="Sparkweave"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="server" value="mblock-vm1"/>
-            <property name="userEmail" value="mblock@sparkweave.com"/>
-            <property name="password" value="123abc"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="Debug"/>
-            <property name="UseHttps"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="auxiliary;index" value="1"/>
-            <property name="auxiliary;index" value="1"/>
+            <property value="false" name="customReconnection"/>
+            <property value="false" name="standardReconnection"/>
+            <property value="123abc" name="ckPassword"/>
+            <property value="Sparkweave" name="name"/>
+            <property value="mblock@sparkweave.com" name="ckUserEmail"/>
+            <property value="true" name="UseHttps"/>
+            <property value="false" name="Debug"/>
+            <property value="demo.sparkweave.com" name="ckServer"/>
+            <property value="" name="connectionLabel"/>
+            <property value="true" name="noReconnection"/>
+            <property value="1" name="auxiliary;index"/>
+            <property name="updated"/>
+            <property-collection name="">
+                <property value="false" name="customReconnection"/>
+                <property value="false" name="standardReconnection"/>
+                <property value="" name="connectionLabel"/>
+                <property value="true" name="noReconnection"/>
+            </property-collection>
         </properties>
+        <description></description>
     </global-element>
-    <flow SubFlow="false" name="FileToSparkWeaveFlow1" entity-id="abe843d5-5b3f-416c-8622-9c4dedafe406">
+    <flow SubFlow="false" name="FileToSparkWeaveFlow1" entity-id="a4227819-283a-4322-aa49-8246a2192dcc">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
-            <property name="auxiliary;index" value="2"/>
+            <property value="2" name="auxiliary;index"/>
             <property name="bussinessEventsLabel"/>
             <property name="tracking:enable-default-events"/>
-            <property name="auxiliary;index" value="2"/>
-            <property name="auxiliary;index" value="2"/>
-            <property name="auxiliary;index" value="2"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
+            <property value="2" name="auxiliary;index"/>
         </properties>
-        <lane hadOnlyOneElement="false" index="0" isChoiceOtherwiseLane="false" entity-id="compartment-lane#1">
-            <endpoint direction="Inbound" message-exchange-pattern="OneWay" name="Inbound File" type="http://www.mulesoft.org/schema/mule/file/endpoint" entity-id="File#1">
+        <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
+            <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/file/endpoint" name="Inbound File" entity-id="File#1">
                 <properties>
-                    <property name="exchange-pattern" value="one-way"/>
-                    <property name="path" value="C:\Users\mblock.HQ-SPARKWEAVE\MuleStudio\Uploads"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="C:\Users\mblock.HQ-SPARKWEAVE\SyncWeaveFolders\MuleSoft\SparkWeave" name="path"/>
                     <property name="outputPattern"/>
                     <property name="moveToPattern"/>
                     <property name="moveToDirectory"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="pollingFrequency"/>
-                    <property name="fileAge"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="20000" name="pollingFrequency"/>
+                    <property value="50000" name="fileAge"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="businessEventsLabel"/>
                     <property name="tracking:enable-default-events"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="address"/>
-                    <property name="responseTimeout" value="10000"/>
+                    <property value="100000" name="responseTimeout"/>
                     <property name="encoding"/>
                     <property name="disableTransportTransformer"/>
                     <property name="mimeType"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="comparator"/>
                     <property name="reverseOrder"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
                     <property name="connector-ref"/>
                     <property name="ref"/>
                     <property name="transformer-refs"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
-                    <property name="auxiliary;index" value="3"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
+                    <property value="3" name="auxiliary;index"/>
                 </properties>
             </endpoint>
-            <pattern name="Variable" type="http://www.mulesoft.org/schema/mule/core/variable-transformer" entity-id="Variable#1">
+            <pattern type="http://www.mulesoft.org/schema/mule/sparkweave/sparkweave-connector" name="Sparkweave" entity-id="SparkWeave Connector#2">
                 <properties>
-                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/core/set-variable"/>
-                    <property name="variableName" value="controllerMap"/>
-                    <property name="value" value="#[payload]"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                    <property name="auxiliary;index" value="4"/>
-                </properties>
-            </pattern>
-            <pattern name="Java" type="org.mule.tooling.ui.modules.core.pattern.customTransformer" entity-id="Java#1">
-                <properties>
-                    <property name="returnClass"/>
-                    <property name="ignoreBadInput"/>
-                    <property name="encoding"/>
-                    <property name="auxiliary;index" value="5"/>
-                    <property name="mimeType"/>
-                    <property name="auxiliary;index" value="5"/>
-                    <property name="auxiliary;index" value="5"/>
-                    <property name="class" value="org.mule.filetosparkweave.transformers.FileToInputStream"/>
-                    <property name="auxiliary;index" value="5"/>
-                    <property name="auxiliary;index" value="5"/>
-                    <property name="auxiliary;index" value="5"/>
-                </properties>
-            </pattern>
-            <pattern name="Sparkweave" type="http://www.mulesoft.org/schema/mule/sparkweave/sparkweave-connector" entity-id="Sparkweave#2">
-                <properties>
-                    <property name="" value=""/>
-                    <property name="overwrite" value="true"/>
-                    <property name="path" value="#[flowVars['controllerMap'].get('fileName')]"/>
-                    <property name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute" value="http://www.mulesoft.org/schema/mule/sparkweave/upload-file"/>
-                    <property name="userEmail" value=""/>
-                    <property name="server" value=""/>
-                    <property name="password" value=""/>
-                    <property name="config-ref" value="Sparkweave"/>
-                    <property name="auxiliary;index" value="6"/>
+                    <property value="" name=""/>
+                    <property value="" name="ckPassword"/>
+                    <property value="true" name="overwrite"/>
+                    <property value="" name="fileDataObj-ref"/>
+                    <property value="/SharedFolders" name="path"/>
+                    <property value="http://www.mulesoft.org/schema/mule/sparkweave/upload-file" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="#[message.inboundProperties.originalFilename]" name="filename"/>
+                    <property value="" name="ckUserEmail"/>
+                    <property value="" name="ckServer"/>
+                    <property value="Sparkweave" name="config-ref"/>
+                    <property value="4" name="auxiliary;index"/>
                     <property name="updated"/>
                 </properties>
                 <description></description>
