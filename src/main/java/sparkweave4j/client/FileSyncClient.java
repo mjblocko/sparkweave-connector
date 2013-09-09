@@ -8,6 +8,7 @@
 package sparkweave4j.client;
 
 import java.io.InputStream;
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +98,7 @@ public class FileSyncClient
   {
   }
 
-  static Cookie findCookieByName(List<Cookie> cookies, String name)
+   static Cookie findCookieByName(List<Cookie> cookies, String name)
   {
     for (Cookie cookie : cookies) {
       if (cookie.getName().equals(name)) {
@@ -264,10 +265,16 @@ public class FileSyncClient
     return paths;
   }
 
-  public String uploadFile(InputStream fileDataObj, boolean overwrite, String path) throws Exception
+  public String uploadFile(InputStream fileDataObj, boolean overwrite, String path, String filename) throws Exception
   {
     String output = null;
-    String apiUrl = createUploadFileResource(path);
+    String absPath = SwHelpers.pathCombine(path, filename);
+    String absPath2 = SwHelpers.makePathUnix(absPath);
+    String apiUrl = createUploadFileResource(absPath2);
+
+    // System.out.println("Path is "+path);
+    // System.out.println("filename is "+filename);
+    System.out.println("apiUrl is " + apiUrl);
 
     apiUrl.concat(String.format("?overwrite=%s", Boolean.valueOf(overwrite)));
 
@@ -304,7 +311,7 @@ public class FileSyncClient
     }
 
     String output = response.getEntity(String.class);
-    System.out.println("Create_Folder : " + output);
+    // System.out.println("Create_Folder : " + output);
 
     return output;
 
@@ -334,7 +341,7 @@ public class FileSyncClient
     }
 
     output = response.getEntity(String.class);
-    System.out.println("Delete file/folder : " + output);
+    // System.out.println("Delete file/folder : " + output);
 
     return output;
   }

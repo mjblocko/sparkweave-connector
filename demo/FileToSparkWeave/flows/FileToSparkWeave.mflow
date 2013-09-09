@@ -2,28 +2,22 @@
 <mule-configuration xmlns="http://www.mulesoft.com/tooling/messageflow" name="FileToSparkWeave">
     <global-element type="http://www.mulesoft.org/schema/mule/sparkweave/config" name="SparkWeave Connector" entity-id="SparkWeave Connector#1">
         <properties>
-            <property value="false" name="customReconnection"/>
-            <property value="false" name="standardReconnection"/>
-            <property value="123abc" name="ckPassword"/>
             <property value="Sparkweave" name="name"/>
-            <property value="mblock@sparkweave.com" name="ckUserEmail"/>
-            <property value="true" name="UseHttps"/>
-            <property value="false" name="Debug"/>
-            <property value="demo.sparkweave.com" name="ckServer"/>
-            <property value="" name="connectionLabel"/>
-            <property value="true" name="noReconnection"/>
             <property value="1" name="auxiliary;index"/>
-            <property name="updated"/>
-            <property-collection name="">
-                <property value="false" name="customReconnection"/>
-                <property value="false" name="standardReconnection"/>
-                <property value="" name="connectionLabel"/>
-                <property value="true" name="noReconnection"/>
-            </property-collection>
+            <property value="demo.sparkweave.com" name="ckServer"/>
+            <property value="mblock@sparkweave.com" name="ckUserEmail"/>
+            <property value="123abc" name="ckPassword"/>
+            <property value="1" name="auxiliary;index"/>
+            <property name="Debug"/>
+            <property name="UseHttps"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
+            <property value="1" name="auxiliary;index"/>
         </properties>
-        <description></description>
     </global-element>
-    <flow SubFlow="false" name="FileToSparkWeaveFlow1" entity-id="a4227819-283a-4322-aa49-8246a2192dcc">
+    <flow SubFlow="false" name="FileToSparkWeaveFlow1" entity-id="ce797639-17f8-4f65-b64a-006d288050ab">
         <properties>
             <property name="processingStrategy2"/>
             <property name="processingStrategy"/>
@@ -37,56 +31,54 @@
         <lane isChoiceOtherwiseLane="false" index="0" hadOnlyOneElement="false" entity-id="compartment-lane#1">
             <endpoint message-exchange-pattern="OneWay" direction="Inbound" type="http://www.mulesoft.org/schema/mule/file/endpoint" name="Inbound File" entity-id="File#1">
                 <properties>
-                    <property value="one-way" name="exchange-pattern"/>
-                    <property value="C:\Users\mblock.HQ-SPARKWEAVE\SyncWeaveFolders\MuleSoft\SparkWeave" name="path"/>
-                    <property name="outputPattern"/>
-                    <property name="moveToPattern"/>
-                    <property name="moveToDirectory"/>
-                    <property value="3" name="auxiliary;index"/>
+                    <property value="true" name="auxiliary;erased;mimeType"/>
+                    <property value="false" name="reverseOrder"/>
+                    <property value="" name="moveToPattern"/>
                     <property value="20000" name="pollingFrequency"/>
+                    <property value="" name="comparator"/>
+                    <property value="false" name="disableTransportTransformer"/>
+                    <property value="one-way" name="exchange-pattern"/>
+                    <property value="" name="ref"/>
+                    <property value="" name="transformer-refs"/>
+                    <property value="" name="moveToDirectory"/>
+                    <property value="" name="address"/>
                     <property value="50000" name="fileAge"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property name="businessEventsLabel"/>
-                    <property name="tracking:enable-default-events"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property name="address"/>
+                    <property value="true" name="auxiliary;erased;encoding"/>
+                    <property value="/home/mblock/MuleStudio/Uploads" name="path"/>
+                    <property value="" name="encoding"/>
                     <property value="100000" name="responseTimeout"/>
-                    <property name="encoding"/>
-                    <property name="disableTransportTransformer"/>
-                    <property name="mimeType"/>
+                    <property value="" name="mimeType"/>
+                    <property value="" name="connector-ref"/>
                     <property value="3" name="auxiliary;index"/>
-                    <property name="comparator"/>
-                    <property name="reverseOrder"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property name="connector-ref"/>
-                    <property name="ref"/>
-                    <property name="transformer-refs"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property value="3" name="auxiliary;index"/>
-                    <property value="3" name="auxiliary;index"/>
-                </properties>
-            </endpoint>
-            <pattern type="http://www.mulesoft.org/schema/mule/sparkweave/sparkweave-connector" name="Sparkweave" entity-id="SparkWeave Connector#2">
-                <properties>
-                    <property value="" name=""/>
-                    <property value="" name="ckPassword"/>
-                    <property value="true" name="overwrite"/>
-                    <property value="" name="fileDataObj-ref"/>
-                    <property value="/SharedFolders" name="path"/>
-                    <property value="http://www.mulesoft.org/schema/mule/sparkweave/upload-file" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
-                    <property value="#[message.inboundProperties.originalFilename]" name="filename"/>
-                    <property value="" name="ckUserEmail"/>
-                    <property value="" name="ckServer"/>
-                    <property value="Sparkweave" name="config-ref"/>
-                    <property value="4" name="auxiliary;index"/>
                     <property name="updated"/>
                 </properties>
                 <description></description>
+            </endpoint>
+            <pattern type="http://www.mulesoft.org/schema/mule/sparkweave/sparkweave-connector" name="Sparkweave" entity-id="SparkWeave Connector#2">
+                <properties>
+                    <property value="Sparkweave" name="config-ref"/>
+                    <property value="http://www.mulesoft.org/schema/mule/sparkweave/upload-file" name="org.mule.tooling.ui.modules.core.widgets.meta.ModeAttribute"/>
+                    <property value="Sparkweave" name="config-ref"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name="fileDataObj-ref"/>
+                    <property value="#[message.inboundProperties.originalFilename]" name="filename"/>
+                    <property value="/SharedFolder" name="path"/>
+                    <property value="true" name="overwrite"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property name=""/>
+                    <property name="ckServer"/>
+                    <property name="ckUserEmail"/>
+                    <property name="ckPassword"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                    <property value="4" name="auxiliary;index"/>
+                </properties>
             </pattern>
         </lane>
     </flow>
-    <description></description>
 </mule-configuration>

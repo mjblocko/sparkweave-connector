@@ -7,6 +7,8 @@
  */
 package sparkweave4j.client;
 
+import java.io.File;
+
 public class SwHelpers
 {
   static String adaptPath(String path)
@@ -15,6 +17,13 @@ public class SwHelpers
       path = path.substring(1);
     }
     return path;
+  }
+
+  static String pathCombine(String path1, String path2)
+  {
+    File parent = new File(path1);
+    File child = new File(parent, path2);
+    return child.getPath();
   }
 
   static String removeTrailingCharacter(String str, char character)

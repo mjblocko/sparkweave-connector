@@ -5,9 +5,9 @@ http://www.mulesoft.org/schema/mule/sparkweave http://www.mulesoft.org/schema/mu
 http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd 
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
-    <sparkweave:config name="Sparkweave"   ckServer="demo.sparkweave.com" ckUserEmail="mblock@sparkweave.com" ckPassword="123abc" doc:name="SparkWeave Connector" UseHttps="true"/>
+    <sparkweave:config name="Sparkweave" ckUserEmail="mblock@sparkweave.com" ckPassword="123abc" ckServer="demo.sparkweave.com" doc:name="SparkWeave Connector"/>
     <flow name="FileToSparkWeaveFlow1" doc:name="FileToSparkWeaveFlow1">
-        <file:inbound-endpoint path="C:\Users\mblock.HQ-SPARKWEAVE\SyncWeaveFolders\MuleSoft\SparkWeave" responseTimeout="100000" doc:name="Inbound File" fileAge="50000" pollingFrequency="20000"/>
-        <sparkweave:upload-file config-ref="Sparkweave" path="/SharedFolders" overwrite="true" doc:name="Sparkweave" filename="#[message.inboundProperties.originalFilename]"/>
+        <file:inbound-endpoint path="/home/mblock/MuleStudio/Uploads" responseTimeout="100000" doc:name="Inbound File" fileAge="50000" pollingFrequency="20000"/>
+        <sparkweave:upload-file config-ref="Sparkweave" path="/SharedFolder" overwrite="true" doc:name="Sparkweave" filename="#[message.inboundProperties.originalFilename]"/>
     </flow>
 </mule>

@@ -45,47 +45,24 @@ public class SparkWeaveConnector
   private Logger logger = LoggerFactory.getLogger(Connection.class);
   
   private FileSyncClient FsClient;
-  private String         Server;
-  private String         UserEmail;
-  private String         UserPassword;
-  
+
+    /**
+     * Debug parameter
+     */
+  @Configurable
+  @Optional
   @Default("false")
-  private boolean        Debug;
-  
+  private boolean Debug;
+
+    /**
+     * UseHttps parameter
+     */
+  @Configurable
+  @Optional
   @Default("false")
-  private boolean        UseHttps;
+  private boolean UseHttps;
 
   
-  public void setServer(String server)
-  {
-    this.Server = server;
-  }
-
-  public String getServer()
-  {
-    return Server;
-  }
-
-  public void setUserEmail(String str)
-  {
-    UserEmail = str;
-  }
-
-  public String getUserEmail()
-  {
-    return UserEmail;
-  }
-
-  public void setUserPassword(String str)
-  {
-    UserPassword = str;
-  }
-
-  public String getUserPassword()
-  {
-    return UserPassword;
-  }
-
   public void setUseHttps(boolean value)
   {
     UseHttps = value;
@@ -135,9 +112,7 @@ public class SparkWeaveConnector
   @Disconnect
   public void disconnect()
   {
-    /*
-     * CODE FOR CLOSING A CONNECTION GOES IN HERE
-     */
+    FsClient = null;
   }
 
   /**
@@ -146,7 +121,7 @@ public class SparkWeaveConnector
   @ValidateConnection
   public boolean isConnected()
   {
-    return true;
+    return FsClient != null;
   }
 
   /*
@@ -185,7 +160,8 @@ public class SparkWeaveConnector
                            String filename)
       throws Exception
   {
-    return FsClient.uploadFile(fileDataObj, overwrite, path);
+    String result = FsClient.uploadFile(fileDataObj, overwrite, path, filename);
+    return result;
   }
 
   /**
